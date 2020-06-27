@@ -17,6 +17,6 @@ namespace WherestheBread.Data
             get
             { return DateTimeOffset.Now; }
         }
-        public virtual IEnumerable<ISubActivity> SubActivities { get; set; }
+        public virtual IEnumerable<SubActivity> SubActivities { get; set; }
     }
 }

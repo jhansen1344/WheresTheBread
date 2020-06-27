@@ -9,6 +9,6 @@ namespace WherestheBread.Data.Interfaces
         int Id { get; set; }
         string Name { get; set; }
         string UserId { get; set; }
-        IEnumerable<IItem> SubActivityItems { get; set; }
+        IEnumerable<Item> SubActivityItems { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace WherestheBread.Data.Interfaces
         int Id { get; set; }
         string UserId { get; set; }
         DateTimeOffset Created { get; }
-        IEnumerable<ISubActivity> SubActivities {get; set;}
+        IEnumerable<SubActivity> SubActivities {get; set;}
     }
 }

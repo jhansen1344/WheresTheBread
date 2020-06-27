@@ -17,6 +17,6 @@ namespace WherestheBread.Data
         [Required]
         public string UserId { get; set; }
 
-        public virtual IEnumerable<IItem> SubActivityItems { get; set; }
+        public virtual IEnumerable<Item> SubActivityItems { get; set; }
     }
 }
