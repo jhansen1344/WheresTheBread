@@ -26,7 +26,7 @@ namespace WheresTheBread.Services
         }
         //Get
 
-        public async Task<IEnumerable<ItemListDto>> GetItems()
+        public async Task<IEnumerable<ItemListDto>> GetItemsAsync()
         {
 
             var itemsFromDb =  await _context.Items.Where(e => e.UserId == _userId).ToListAsync();
@@ -38,32 +38,48 @@ namespace WheresTheBread.Services
 
         // //Get By Id/
 
-        public async Task<ItemDetailDto> GetItemById(int id)
+        public async Task<ItemDetailDto> GetItemByIdAsync(int id)
         {
-            var itemFromDb = await _context.Items.FirstOrDefaultAsync(e => e.UserId == _userId && e.Id == id);
+            var itemFromDb = await _context.Items.SingleOrDefaultAsync(e => e.UserId == _userId && e.Id == id);
             var itemToReturn = _mapper.Map<ItemDetailDto>(itemFromDb);
             return itemToReturn;
 
         }
 
         ////Create
-        //public bool CreateItem (ItemCreateDto model)
-        // {
+        public async Task<bool> CreateItemAsync(ItemCreateDto model)
+        {
+            var item = new Item()
+            {
+                UserId = _userId,
+                Name = model.Name,
+                LocationId = model.LocationId
+            };
+            await _context.Items.AddAsync(item);
+            return await _context.SaveChangesAsync() == 1;
 
-        // }
+        }
 
         // //Update
 
-        // public bool UpdateItem (ItemUpdateDto model)
-        // {
-
-        // }
+        public async Task<bool> UpdateItem(ItemUpdateDto model)
+        {
+            var item = await _context
+                            .Items
+                            .SingleOrDefaultAsync(e => e.Id == model.Id && e.UserId == _userId);
+            _mapper.Map(model, item);
+            return await _context.SaveChangesAsync() == 1;
+        }
 
         // //Delete
 
-        // public bool DeleteItem (int itemId)
-        // {
-
-        // }
+        public async Task<bool> DeleteItem(int itemId)
+        {
+            var item =  await _context
+                            .Items
+                            .SingleOrDefaultAsync(e => e.Id == itemId && e.UserId == _userId);
+             _context.Items.Remove(item);
+            return await _context.SaveChangesAsync() == 1;
+        }
     }
 }
