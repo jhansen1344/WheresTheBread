@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using WherestheBread.Data.Interfaces;
+using WheresTheBread.Data.Interfaces;
 
-namespace WherestheBread.Data
+namespace WheresTheBread.Data
 {
     public class SubActivity : ISubActivity
     {

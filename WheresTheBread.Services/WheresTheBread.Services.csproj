@@ -1,16 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <ProjectReference Include="..\WheresTheBread.DTO\WheresTheBread.DTO.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\WheresTheBread.DTO\WheresTheBread.DTO.csproj" />
-    <ProjectReference Include="..\WheresTheBread\WheresTheBread.csproj" />
-  </ItemGroup>
 
 </Project>

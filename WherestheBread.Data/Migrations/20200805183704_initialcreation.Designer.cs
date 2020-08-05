@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WherestheBread;
+using WheresTheBread;
 
-namespace WheresTheBread.Migrations
+namespace WheresTheBread.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200627172838_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200805183704_initialcreation")]
+    partial class initialcreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace WheresTheBread.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.5");
 
-            modelBuilder.Entity("WherestheBread.Data.Activity", b =>
+            modelBuilder.Entity("WheresTheBread.Data.Activity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,17 +33,15 @@ namespace WheresTheBread.Migrations
                     b.ToTable("Activities");
                 });
 
-            modelBuilder.Entity("WherestheBread.Data.Item", b =>
+            modelBuilder.Entity("WheresTheBread.Data.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Location")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -64,7 +62,7 @@ namespace WheresTheBread.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("WherestheBread.Data.SubActivity", b =>
+            modelBuilder.Entity("WheresTheBread.Data.SubActivity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,16 +87,16 @@ namespace WheresTheBread.Migrations
                     b.ToTable("SubActivities");
                 });
 
-            modelBuilder.Entity("WherestheBread.Data.Item", b =>
+            modelBuilder.Entity("WheresTheBread.Data.Item", b =>
                 {
-                    b.HasOne("WherestheBread.Data.SubActivity", null)
+                    b.HasOne("WheresTheBread.Data.SubActivity", null)
                         .WithMany("SubActivityItems")
                         .HasForeignKey("SubActivityId");
                 });
 
-            modelBuilder.Entity("WherestheBread.Data.SubActivity", b =>
+            modelBuilder.Entity("WheresTheBread.Data.SubActivity", b =>
                 {
-                    b.HasOne("WherestheBread.Data.Activity", null)
+                    b.HasOne("WheresTheBread.Data.Activity", null)
                         .WithMany("SubActivities")
                         .HasForeignKey("ActivityId");
                 });

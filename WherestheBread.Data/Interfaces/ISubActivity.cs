@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WherestheBread.Data.Interfaces
+namespace WheresTheBread.Data.Interfaces
 {
     public interface ISubActivity
     {

@@ -13,7 +13,7 @@ namespace WheresTheBread.DTO.ItemDto
         [MaxLength(50, ErrorMessage = "Too many characters")]
         [Display(Name = "Item Name")]
         public string Name { get; set; }
-        public int? LocationId { get; set; }
+        public string Location { get; set; }
         
     }
 }

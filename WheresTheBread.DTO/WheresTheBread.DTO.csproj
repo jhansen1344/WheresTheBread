@@ -9,7 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WherestheBread.Data\WherestheBread.Data.csproj" />
+    <Folder Include="ActivityDto\" />
+    <Folder Include="SubActivityDto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WherestheBread.Data\WheresTheBread.Data.csproj" />
   </ItemGroup>
 
 </Project>

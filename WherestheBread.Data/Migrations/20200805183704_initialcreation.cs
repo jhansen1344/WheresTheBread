@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WheresTheBread.Migrations
+namespace WheresTheBread.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialcreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,8 +48,7 @@ namespace WheresTheBread.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
-                    LocationId = table.Column<int>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(maxLength: 50, nullable: true),
                     SubActivityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

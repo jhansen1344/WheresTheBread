@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WherestheBread.Data;
+using WheresTheBread.Data;
 using WheresTheBread.DTO.ItemDto;
 
 namespace WheresTheBread.DTO

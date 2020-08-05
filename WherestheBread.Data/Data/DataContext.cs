@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WherestheBread.Data;
+using WheresTheBread.Data;
 
-namespace WherestheBread
+namespace WheresTheBread
 {
     public class DataContext : DbContext
     {
@@ -15,7 +15,6 @@ namespace WherestheBread
         public DbSet<Item> Items { get; set; }
         public DbSet<SubActivity> SubActivities { get; set; }
         public DbSet<Activity> Activities { get; set; }
-
 
     }
 }

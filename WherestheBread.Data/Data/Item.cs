@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using WherestheBread.Data.Interfaces;
+using WheresTheBread.Data.Interfaces;
 
-namespace WherestheBread.Data
+namespace WheresTheBread.Data
 {
     public class Item : IItem
     {
@@ -17,9 +17,11 @@ namespace WherestheBread.Data
         [MaxLength(50, ErrorMessage = "Too many characters")]
         [Display(Name = "Item Name")]
         public string Name { get; set ; }
-        [ForeignKey(nameof(Location))]
-        public int? LocationId { get ; set ; }
+
         [Display(Name = "Item Location")]
+        [MaxLength(50, ErrorMessage = "Too many characters")]
         public virtual string Location { get ; set ; }
+
+        //public virtual List<SubActivity> SubActivities { get; set; }
     }
 }
