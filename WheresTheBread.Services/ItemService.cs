@@ -13,7 +13,7 @@ namespace WheresTheBread.Services
 {
     public class ItemService : IItemService
     {
-        private readonly string _userId;
+        private readonly string _userId = "testUser";
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
@@ -28,10 +28,10 @@ namespace WheresTheBread.Services
         public async Task<IEnumerable<ItemListDto>> GetItemsAsync()
         {
 
-            var itemsFromDb = await _context.Items.Where(e => e.UserId == _userId).ToListAsync();
+            List<Item> itemsFromDb = await _context.Items.Where(e => e.UserId == _userId).ToListAsync();
 
-            var itemsToReturn = _mapper.Map<IEnumerable<ItemListDto>>(itemsFromDb);
-            return itemsToReturn.ToList();
+            var itemsToReturn = _mapper.Map<List<ItemListDto>>(itemsFromDb);
+            return itemsToReturn;
         }
 
 
@@ -62,7 +62,7 @@ namespace WheresTheBread.Services
 
         // //Update
 
-        public async Task<bool> UpdateItem(ItemUpdateDto model)
+        public async Task<bool> UpdateItemAsync(ItemUpdateDto model)
         {
             var item = await _context
                             .Items
@@ -73,7 +73,7 @@ namespace WheresTheBread.Services
 
         // //Delete
 
-        public async Task<bool> DeleteItem(int itemId)
+        public async Task<bool> DeleteItemAsync(int itemId)
         {
             var item = await _context
                             .Items

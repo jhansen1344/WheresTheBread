@@ -32,8 +32,52 @@ namespace WheresTheBread.Controllers
             }
 
             throw new System.Exception("Creating the message failed on save");
-
-
         }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Get()
+        {
+            var itemList = await _itemService.GetItemsAsync();
+            return Ok(itemList);
+        }
+
+        [HttpGet("{id}", Name = "GetItem")]
+        public async Task<IActionResult> GetItem(int userId, int id)
+        {
+            var item = await _itemService.GetItemByIdAsync(id);
+
+            if (item == null)
+                return NotFound();
+            return Ok(item);
+        }
+
+        [HttpPut("{id}", Name = "EditItem")]
+        public async Task<IActionResult> EditItem(ItemUpdateDto itemUpdate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Please submit a valid item");
+            }
+            var result = await _itemService.UpdateItemAsync(itemUpdate);
+            if (result)
+            {
+                return Ok("Item Created Successfully");
+            }
+
+            throw new System.Exception("Creating the message failed on save");
+        }
+
+        [HttpPost("{id}")]
+
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            if (await _itemService.DeleteItemAsync(id))
+                return NoContent();
+
+            throw new System.Exception("Error deleting the message");
+        }
+
+        
     }
 }

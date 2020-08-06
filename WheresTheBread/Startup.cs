@@ -34,7 +34,7 @@ namespace WheresTheBread
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
-            services.AddAutoMapper(typeof(Item).Assembly);
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IItemService, ItemService>();
         }
 

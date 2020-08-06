@@ -20,7 +20,7 @@ namespace WheresTheBread.Data
 
         [Display(Name = "Item Location")]
         [MaxLength(50, ErrorMessage = "Too many characters")]
-        public virtual string Location { get ; set ; }
+        public string Location { get ; set ; }
 
         //public virtual List<SubActivity> SubActivities { get; set; }
     }

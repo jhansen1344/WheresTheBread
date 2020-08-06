@@ -9,9 +9,9 @@ namespace WheresTheBread.Services
     public interface IItemService
     {
         Task<bool> CreateItemAsync(ItemCreateDto model);
-        Task<bool> DeleteItem(int itemId);
+        Task<bool> DeleteItemAsync(int itemId);
         Task<ItemDetailDto> GetItemByIdAsync(int id);
         Task<IEnumerable<ItemListDto>> GetItemsAsync();
-        Task<bool> UpdateItem(ItemUpdateDto model);
+        Task<bool> UpdateItemAsync(ItemUpdateDto model);
     }
 }
