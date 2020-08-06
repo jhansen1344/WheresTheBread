@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using WheresTheBread.Data.Interfaces;
+using WheresTheBread.Data;
 
-namespace WheresTheBread.Data
+namespace WheresTheBread.DTO.SubActivityDto
 {
-    public class SubActivity : ISubActivity
+    public class SubActivityUpdateDto
     {
-        [Key]
-        public int Id { get; set ; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "Too many characters")]
         [Display(Name = "SubActivity")]
         public string Name { get; set; }
-        [Required]
-        public string UserId { get; set; }
-
         public virtual IEnumerable<Item> SubActivityItems { get; set; }
     }
 }
