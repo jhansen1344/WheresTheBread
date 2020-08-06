@@ -8,6 +8,7 @@ namespace WheresTheBread.Services
 {
     public interface ISubActivityService
     {
+
         Task<bool> CreateSubActivityAsync(SubActivityCreateDto model);
         Task<bool> DeleteSubActivityAsync(int id);
         Task<SubActivityDetailDto> GetSubActivityByIdAsync(int id);
