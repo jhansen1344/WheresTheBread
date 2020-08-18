@@ -26,7 +26,7 @@ namespace WheresTheBread.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Please submit a valid SubActivity");
+                return BadRequest("Please submit a valid subactivity");
             }
             var result = await _subActivityService.CreateSubActivityAsync(subActivity);
             if (result)
@@ -45,40 +45,40 @@ namespace WheresTheBread.Controllers
             return Ok(subActivityList);
         }
 
-        [HttpGet("{id}", Name = "GetItem")]
-        public async Task<IActionResult> GetItem(int userId, int id)
+        [HttpGet("{id}", Name = "GetSubActivity")]
+        public async Task<IActionResult> GetSubActivity(int userId, int id)
         {
-            var item = await _subActivityService.(id);
+            var subActivity = await _subActivityService.GetSubActivityByIdAsync(id);
 
-            if (item == null)
+            if (subActivity == null)
                 return NotFound();
-            return Ok(item);
+            return Ok(subActivity);
         }
 
-        [HttpPut("{id}", Name = "EditItem")]
-        public async Task<IActionResult> EditItem(SubActivityUpdateDto itemUpdate)
+        [HttpPut("{id}", Name = "EditSubActivity")]
+        public async Task<IActionResult> EditSubActivity(SubActivityUpdateDto subActivityUpdate)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Please submit a valid item");
+                return BadRequest("Please submit a valid subactivity");
             }
-            var result = await _subActivityService.UpdateItemAsync(itemUpdate);
+            var result = await _subActivityService.UpdateSubActivityAsync(subActivityUpdate);
             if (result)
             {
-                return Ok("Item Created Successfully");
+                return Ok("Subactivity Created Successfully");
             }
 
-            throw new System.Exception("Creating the message failed on save");
+            throw new System.Exception("Creating the subactivity failed on save");
         }
 
         [HttpPost("{id}")]
 
-        public async Task<IActionResult> DeleteItem(int id)
+        public async Task<IActionResult> DeleteSubActivity(int id)
         {
-            if (await _subActivityService.DeleteItemAsync(id))
+            if (await _subActivityService.DeleteSubActivityAsync(id))
                 return NoContent();
 
-            throw new System.Exception("Error deleting the message");
+            throw new System.Exception("Error deleting the subactivity");
         }
     }
 }

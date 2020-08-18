@@ -36,6 +36,7 @@ namespace WheresTheBread
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<ISubActivityService, SubActivityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -31,7 +31,7 @@ namespace WheresTheBread.Controllers
                 return Ok("Item Created Successfully");
             }
 
-            throw new System.Exception("Creating the message failed on save");
+            throw new System.Exception("Creating the item failed on save");
         }
 
         [HttpGet]
@@ -65,7 +65,7 @@ namespace WheresTheBread.Controllers
                 return Ok("Item Created Successfully");
             }
 
-            throw new System.Exception("Creating the message failed on save");
+            throw new System.Exception("Creating the item failed on save");
         }
 
         [HttpPost("{id}")]
@@ -75,7 +75,7 @@ namespace WheresTheBread.Controllers
             if (await _itemService.DeleteItemAsync(id))
                 return NoContent();
 
-            throw new System.Exception("Error deleting the message");
+            throw new System.Exception("Error deleting the item");
         }
 
         
