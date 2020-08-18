@@ -9,7 +9,7 @@ using WheresTheBread;
 namespace WheresTheBread.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200805183704_initialcreation")]
+    [Migration("20200818231012_initialcreation")]
     partial class initialcreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,21 @@ namespace WheresTheBread.Data.Migrations
                     b.ToTable("Activities");
                 });
 
+            modelBuilder.Entity("WheresTheBread.Data.Data.SubActivityItemJoin", b =>
+                {
+                    b.Property<int>("SubActivityId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("SubActivityId", "ItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("SubActivityItemJoin");
+                });
+
             modelBuilder.Entity("WheresTheBread.Data.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -48,16 +63,11 @@ namespace WheresTheBread.Data.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("SubActivityId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubActivityId");
 
                     b.ToTable("Items");
                 });
@@ -87,11 +97,19 @@ namespace WheresTheBread.Data.Migrations
                     b.ToTable("SubActivities");
                 });
 
-            modelBuilder.Entity("WheresTheBread.Data.Item", b =>
+            modelBuilder.Entity("WheresTheBread.Data.Data.SubActivityItemJoin", b =>
                 {
-                    b.HasOne("WheresTheBread.Data.SubActivity", null)
+                    b.HasOne("WheresTheBread.Data.Item", "Item")
                         .WithMany("SubActivityItems")
-                        .HasForeignKey("SubActivityId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WheresTheBread.Data.SubActivity", "SubActivity")
+                        .WithMany("SubActivityItems")
+                        .HasForeignKey("SubActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WheresTheBread.Data.SubActivity", b =>

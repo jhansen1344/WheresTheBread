@@ -20,6 +20,21 @@ namespace WheresTheBread.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Items",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Location = table.Column<string>(maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Items", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubActivities",
                 columns: table => new
                 {
@@ -41,40 +56,45 @@ namespace WheresTheBread.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "SubActivityItemJoin",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    Location = table.Column<string>(maxLength: 50, nullable: true),
-                    SubActivityId = table.Column<int>(nullable: true)
+                    SubActivityId = table.Column<int>(nullable: false),
+                    ItemId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.PrimaryKey("PK_SubActivityItemJoin", x => new { x.SubActivityId, x.ItemId });
                     table.ForeignKey(
-                        name: "FK_Items_SubActivities_SubActivityId",
+                        name: "FK_SubActivityItemJoin_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SubActivityItemJoin_SubActivities_SubActivityId",
                         column: x => x.SubActivityId,
                         principalTable: "SubActivities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_SubActivityId",
-                table: "Items",
-                column: "SubActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubActivities_ActivityId",
                 table: "SubActivities",
                 column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubActivityItemJoin_ItemId",
+                table: "SubActivityItemJoin",
+                column: "ItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SubActivityItemJoin");
+
             migrationBuilder.DropTable(
                 name: "Items");
 
