@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using WheresTheBread.Data.Data;
 using WheresTheBread.Data.Interfaces;
 
 namespace WheresTheBread.Data
@@ -21,6 +22,8 @@ namespace WheresTheBread.Data
         [Display(Name = "Item Location")]
         [MaxLength(50, ErrorMessage = "Too many characters")]
         public string Location { get ; set ; }
+
+        public IEnumerable<SubActivityItemJoin> SubActivityItems { get; set; }
 
         //public virtual List<SubActivity> SubActivities { get; set; }
     }

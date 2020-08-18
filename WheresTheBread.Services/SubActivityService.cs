@@ -28,7 +28,7 @@ namespace WheresTheBread.Services
             {
                 UserId = "testUser",
                 Name = model.Name,
-                SubActivityItems = model.SubActivityItems
+                //SubActivityItems = model.SubActivityItems
             };
             await _context.SubActivities.AddAsync(subActivity);
             var result = await _context.SaveChangesAsync() == 1;

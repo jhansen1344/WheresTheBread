@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using WheresTheBread.Data.Data;
 using WheresTheBread.Data.Interfaces;
 
 namespace WheresTheBread.Data
@@ -17,6 +18,6 @@ namespace WheresTheBread.Data
         [Required]
         public string UserId { get; set; }
 
-        public virtual IEnumerable<Item> SubActivityItems { get; set; }
+        public IEnumerable<SubActivityItemJoin> SubActivityItems { get; set; }
     }
 }

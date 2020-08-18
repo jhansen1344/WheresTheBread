@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WheresTheBread.Data.Data;
 
 namespace WheresTheBread.Data.Interfaces
 {
@@ -9,6 +10,6 @@ namespace WheresTheBread.Data.Interfaces
         int Id { get; set; }
         string Name { get; set; }
         string UserId { get; set; }
-        IEnumerable<Item> SubActivityItems { get; set; }
+        IEnumerable<SubActivityItemJoin> SubActivityItems { get; set; }
     }
 }
