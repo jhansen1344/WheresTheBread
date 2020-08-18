@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WheresTheBread.Data;
+using WheresTheBread.Data.Data;
 using WheresTheBread.DTO.SubActivityDto;
 
 namespace WheresTheBread.Services
@@ -28,9 +29,15 @@ namespace WheresTheBread.Services
             {
                 UserId = "testUser",
                 Name = model.Name,
-                //SubActivityItems = model.SubActivityItems
+                SubActivityItems= new List<SubActivityItemJoin>()
             };
+            
             await _context.SubActivities.AddAsync(subActivity);
+
+            foreach (var id in model.ItemIds)
+            {
+                subActivity.SubActivityItems.Add(new SubActivityItemJoin() { SubActivityId = subActivity.Id, ItemId = id });
+            }
             var result = await _context.SaveChangesAsync() == 1;
             return result;
 

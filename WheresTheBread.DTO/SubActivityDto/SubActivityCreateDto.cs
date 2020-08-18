@@ -14,6 +14,6 @@ namespace WheresTheBread.DTO.SubActivityDto
         [Display(Name = "SubActivity Name")]
         public string Name { get; set; }
 
-        public virtual IEnumerable<Item> SubActivityItems { get; set; }
+        public virtual IEnumerable<int> ItemIds { get; set; }
     }
 }
