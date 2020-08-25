@@ -32,18 +32,22 @@ namespace WheresTheBread.Services
                 SubActivityItems= new List<SubActivityItemJoin>()
             };
             
-            await _context.SubActivities.AddAsync(subActivity);
-            var result = await _context.SaveChangesAsync() == 1;
-            var itemToAdd = new SubActivityItemJoin();
+            
+            var itemToAdd = new Item();
             foreach (var id in model.ItemIds)
             {
-                itemToAdd.SubActivityId = subActivity.Id;
-                itemToAdd.ItemId = id;
-                _context.SubActivityItems.Add(itemToAdd);
+                itemToAdd = _context.Items.Find(id);
+                subActivity.SubActivityItems.Add(new SubActivityItemJoin()
+                {
+                    Item = itemToAdd,
+                    SubActivity = subActivity
+                });
                 //subActivity.SubActivityItems.Append(itemToAdd);
                 //subActivity.SubActivityItems.Add(new SubActivityItemJoin() { SubActivityId = subActivity.Id, ItemId = id });
             }
-            result = await _context.SaveChangesAsync() == model.ItemIds.Count();
+            await _context.SubActivities.AddAsync(subActivity);
+            //var changesMade = await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync() == model.ItemIds.Count() +1;
 
             return result;
 

@@ -43,7 +43,7 @@ namespace WheresTheBread.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("SubActivityItems");
+                    b.ToTable("SubActivityItemJoin");
                 });
 
             modelBuilder.Entity("WheresTheBread.Data.Item", b =>

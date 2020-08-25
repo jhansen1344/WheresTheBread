@@ -16,7 +16,6 @@ namespace WheresTheBread
         public DbSet<Item> Items { get; set; }
         public DbSet<SubActivity> SubActivities { get; set; }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<SubActivityItemJoin> SubActivityItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

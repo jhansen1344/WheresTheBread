@@ -9,7 +9,7 @@ using WheresTheBread;
 namespace WheresTheBread.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200825012415_updatedDataTables")]
+    [Migration("20200825233254_updatedDataTables")]
     partial class updatedDataTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,7 @@ namespace WheresTheBread.Data.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("SubActivityItems");
+                    b.ToTable("SubActivityItemJoin");
                 });
 
             modelBuilder.Entity("WheresTheBread.Data.Item", b =>
