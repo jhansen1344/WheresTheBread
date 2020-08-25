@@ -2,7 +2,7 @@
 
 namespace WheresTheBread.Data.Migrations
 {
-    public partial class initialcreation : Migration
+    public partial class updatedDataTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,7 +56,7 @@ namespace WheresTheBread.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubActivityItemJoin",
+                name: "SubActivityItems",
                 columns: table => new
                 {
                     SubActivityId = table.Column<int>(nullable: false),
@@ -64,15 +64,15 @@ namespace WheresTheBread.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubActivityItemJoin", x => new { x.SubActivityId, x.ItemId });
+                    table.PrimaryKey("PK_SubActivityItems", x => new { x.SubActivityId, x.ItemId });
                     table.ForeignKey(
-                        name: "FK_SubActivityItemJoin_Items_ItemId",
+                        name: "FK_SubActivityItems_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SubActivityItemJoin_SubActivities_SubActivityId",
+                        name: "FK_SubActivityItems_SubActivities_SubActivityId",
                         column: x => x.SubActivityId,
                         principalTable: "SubActivities",
                         principalColumn: "Id",
@@ -85,15 +85,15 @@ namespace WheresTheBread.Data.Migrations
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubActivityItemJoin_ItemId",
-                table: "SubActivityItemJoin",
+                name: "IX_SubActivityItems_ItemId",
+                table: "SubActivityItems",
                 column: "ItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SubActivityItemJoin");
+                name: "SubActivityItems");
 
             migrationBuilder.DropTable(
                 name: "Items");

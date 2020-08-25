@@ -33,12 +33,18 @@ namespace WheresTheBread.Services
             };
             
             await _context.SubActivities.AddAsync(subActivity);
-
+            var result = await _context.SaveChangesAsync() == 1;
+            var itemToAdd = new SubActivityItemJoin();
             foreach (var id in model.ItemIds)
             {
-                subActivity.SubActivityItems.Add(new SubActivityItemJoin() { SubActivityId = subActivity.Id, ItemId = id });
+                itemToAdd.SubActivityId = subActivity.Id;
+                itemToAdd.ItemId = id;
+                _context.SubActivityItems.Add(itemToAdd);
+                //subActivity.SubActivityItems.Append(itemToAdd);
+                //subActivity.SubActivityItems.Add(new SubActivityItemJoin() { SubActivityId = subActivity.Id, ItemId = id });
             }
-            var result = await _context.SaveChangesAsync() == 1;
+            result = await _context.SaveChangesAsync() == model.ItemIds.Count();
+
             return result;
 
         }
