@@ -23,7 +23,7 @@ namespace WheresTheBread.Data
         [MaxLength(50, ErrorMessage = "Too many characters")]
         public string Location { get ; set ; }
 
-        public IEnumerable<SubActivityItemJoin> SubActivityItems { get; set; }
+        public virtual ICollection<SubActivityItemJoin> SubActivityItems { get; set; }
 
         //public virtual List<SubActivity> SubActivities { get; set; }
     }

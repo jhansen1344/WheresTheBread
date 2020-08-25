@@ -18,6 +18,6 @@ namespace WheresTheBread.Data
         [Required]
         public string UserId { get; set; }
 
-        public IEnumerable<SubActivityItemJoin> SubActivityItems { get; set; }
+        public ICollection<SubActivityItemJoin> SubActivityItems { get; set; }
     }
 }
