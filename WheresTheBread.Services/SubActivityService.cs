@@ -62,7 +62,7 @@ namespace WheresTheBread.Services
 
         public async Task<IEnumerable<SubActivityListDto>> GetSubActivitiesAsync()
         {
-            var subActivitiesFromDb = await _context.SubActivities.Where(e => e.UserId ==_userId).ToListAsync();
+            var subActivitiesFromDb = await _context.SubActivities.Where(e => e.UserId ==_userId).Include(subActivity => subActivity.SubActivityItems).ToListAsync();
             var subActivitiesToReturn = _mapper.Map<List<SubActivityListDto>>(subActivitiesFromDb);
             return subActivitiesToReturn;
         }
@@ -70,6 +70,7 @@ namespace WheresTheBread.Services
         public async Task<SubActivityDetailDto> GetSubActivityByIdAsync(int id)
         {
             var subActivityFromDb = await _context.SubActivities.SingleOrDefaultAsync(e => e.UserId == _userId && e.Id == id);
+                //.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item);
             var subActivityToReturn = _mapper.Map<SubActivityDetailDto>(subActivityFromDb);
             return subActivityToReturn;
         }

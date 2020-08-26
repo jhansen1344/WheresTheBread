@@ -17,7 +17,10 @@ namespace WheresTheBread
             CreateMap<Item, ItemListDto>();
             CreateMap<Item, ItemDetailDto>();
             CreateMap<ItemUpdateDto, Item>();
-            CreateMap<SubActivity, SubActivityListDto>();
+            CreateMap<SubActivity, SubActivityListDto>()
+                .ForMember(dest =>
+                    dest.ItemCount,
+                    opt =>opt.MapFrom(src =>src.SubActivityItems.Count));
             CreateMap<SubActivity, SubActivityDetailDto>();
 
         }
