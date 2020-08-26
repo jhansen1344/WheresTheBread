@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WheresTheBread.Data.Data;
 using WheresTheBread.DTO.ItemDto;
 
 namespace WheresTheBread.DTO.SubActivityDto
@@ -10,7 +11,7 @@ namespace WheresTheBread.DTO.SubActivityDto
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual IEnumerable<ItemListDto> SubActivityItems { get; set; }
+        public virtual IEnumerable<SubActivityItemJoin> SubActivityItems { get; set; }
 
 
     }

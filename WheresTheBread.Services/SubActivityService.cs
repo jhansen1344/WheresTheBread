@@ -42,11 +42,9 @@ namespace WheresTheBread.Services
                     Item = itemToAdd,
                     SubActivity = subActivity
                 });
-                //subActivity.SubActivityItems.Append(itemToAdd);
-                //subActivity.SubActivityItems.Add(new SubActivityItemJoin() { SubActivityId = subActivity.Id, ItemId = id });
             }
             await _context.SubActivities.AddAsync(subActivity);
-            //var changesMade = await _context.SaveChangesAsync();
+
             var result = await _context.SaveChangesAsync() == model.ItemIds.Count() +1;
 
             return result;
