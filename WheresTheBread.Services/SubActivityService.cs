@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WheresTheBread.Data;
 using WheresTheBread.Data.Data;
+using WheresTheBread.DTO.ItemDto;
 using WheresTheBread.DTO.SubActivityDto;
 
 namespace WheresTheBread.Services
@@ -69,9 +70,12 @@ namespace WheresTheBread.Services
 
         public async Task<SubActivityDetailDto> GetSubActivityByIdAsync(int id)
         {
-            var subActivityFromDb = await _context.SubActivities.SingleOrDefaultAsync(e => e.UserId == _userId && e.Id == id);
+            var subActivityFromDb = await _context.SubActivities.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item).SingleOrDefaultAsync(e => e.UserId == _userId && e.Id == id);
+           
                 //.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item);
             var subActivityToReturn = _mapper.Map<SubActivityDetailDto>(subActivityFromDb);
+            subActivityToReturn.Items = _mapper.Map<List<ItemDetailDto>>(subActivityFromDb.SubActivityItems);
+            //subActivityToReturn.SubActivityItems = _mapper.Map<List<ItemListDto>>(subActivityFromDb.SubActivityItems.Item)
             return subActivityToReturn;
         }
 

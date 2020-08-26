@@ -10,6 +10,6 @@ namespace WheresTheBread.DTO.SubActivityDto
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual IEnumerable<ItemDetailDto> SubActivityItems { get; set; }
+        public IEnumerable<ItemDetailDto> Items { get; set; }
     }
 }
