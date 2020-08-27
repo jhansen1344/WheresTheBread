@@ -81,12 +81,26 @@ namespace WheresTheBread.Services
 
         public async Task<bool> UpdateSubActivityAsync(SubActivityUpdateDto model)
         {
-            var subactivity = await _context
+            var subActivity = await _context
                             .SubActivities
+                            .Include(subActivity => subActivity.SubActivityItems)
                             .SingleOrDefaultAsync(e => e.Id == model.Id && e.UserId == _userId);
-            _mapper.Map(model, subactivity);
-            return await _context.SaveChangesAsync() == 1;
+            _mapper.Map(model, subActivity);
 
+            subActivity.SubActivityItems.Clear();
+            var itemToAdd = new Item();
+            foreach (var id in model.ItemIds)
+            {
+                itemToAdd = _context.Items.Find(id);
+                subActivity.SubActivityItems.Add(new SubActivityItemJoin()
+                {
+                    Item = itemToAdd,
+                    SubActivity = subActivity
+                });
+            }
+            var result = await _context.SaveChangesAsync() == model.ItemIds.Count() + 1;
+
+            return result;
         }
     }
 }
