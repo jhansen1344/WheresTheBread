@@ -56,11 +56,16 @@ namespace WheresTheBread.Controllers
         }
 
         [HttpPut("{id}", Name = "EditSubActivity")]
-        public async Task<IActionResult> EditSubActivity(SubActivityUpdateDto subActivityUpdate)
+        public async Task<IActionResult> EditSubActivity(int id, SubActivityUpdateDto subActivityUpdate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Please submit a valid subactivity");
+            }
+
+            if(id != subActivityUpdate.Id)
+            {
+                return BadRequest("Unable to update subactivity");
             }
             var result = await _subActivityService.UpdateSubActivityAsync(subActivityUpdate);
             if (result)
