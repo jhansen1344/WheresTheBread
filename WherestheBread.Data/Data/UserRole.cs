@@ -5,8 +5,9 @@ using System.Text;
 
 namespace WheresTheBread.Data.Data
 {
-    public class User : IdentityUser
+    public class UserRole : IdentityUserRole<int>
     {
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual User User { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
