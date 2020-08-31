@@ -7,6 +7,7 @@ using WheresTheBread.Data;
 using WheresTheBread.Data.Data;
 using WheresTheBread.DTO.ItemDto;
 using WheresTheBread.DTO.SubActivityDto;
+using WheresTheBread.DTO.UserDto;
 
 namespace WheresTheBread
 {
@@ -34,6 +35,7 @@ namespace WheresTheBread
                     dest.Location,
                     opt => opt.MapFrom(src => src.Item.Location));
             CreateMap<SubActivityUpdateDto, SubActivity>();
+            CreateMap<User, UserToReturnDto>();
             //.ForMember(dest =>
             //dest.SubActivityItems,
             //opt => opt.MapFrom(src => src.SubActivityItems));

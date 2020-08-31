@@ -59,9 +59,7 @@ namespace WheresTheBread
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
-                options.AddPolicy("VipOnly", policy => policy.RequireRole("VIP"));
-
+             
             });
 
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -72,7 +70,12 @@ namespace WheresTheBread
                     .Build();
 
                 options.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            services.AddCors();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<ISubActivityService, SubActivityService>();
