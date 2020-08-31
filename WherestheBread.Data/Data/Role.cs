@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WheresTheBread.Data.Data
 {
-    public class Role : IdentityRole
+    public class Role : IdentityRole<int>
     {
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
