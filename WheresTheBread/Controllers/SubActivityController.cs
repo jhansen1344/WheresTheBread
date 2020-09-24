@@ -15,7 +15,7 @@ namespace WheresTheBread.Controllers
     public class SubActivityController : ControllerBase
     {
         private readonly ISubActivityService _subActivityService;
-
+        private string _userId;
 
         public SubActivityController(ISubActivityService service)
         {
@@ -23,16 +23,15 @@ namespace WheresTheBread.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(string userId, SubActivityCreateDto subActivity)
+        public async Task<IActionResult> Post(SubActivityCreateDto subActivity)
         {
-            if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                return Unauthorized();
+            _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (!ModelState.IsValid)
             {
                 return BadRequest("Please submit a valid subactivity");
             }
-            var result = await _subActivityService.CreateSubActivityAsync(userId, subActivity);
+            var result = await _subActivityService.CreateSubActivityAsync(_userId, subActivity);
             if (result)
             {
                 return Ok("Item Created Successfully");
@@ -43,20 +42,20 @@ namespace WheresTheBread.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> Get(string userId)
+        public async Task<IActionResult> Get()
         {
-            if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                return Unauthorized();
-            var subActivityList = await _subActivityService.GetSubActivitiesAsync(userId);
+            _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            //    return Unauthorized();
+            var subActivityList = await _subActivityService.GetSubActivitiesAsync(_userId);
             return Ok(subActivityList);
         }
 
         [HttpGet("{id}", Name = "GetSubActivity")]
-        public async Task<IActionResult> GetSubActivity(string userId, int id)
+        public async Task<IActionResult> GetSubActivity(int id)
         {
-            if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                return Unauthorized();
-            var subActivity = await _subActivityService.GetSubActivityByIdAsync(userId, id);
+            _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var subActivity = await _subActivityService.GetSubActivityByIdAsync(_userId, id);
 
             if (subActivity == null)
                 return NotFound();
@@ -64,10 +63,9 @@ namespace WheresTheBread.Controllers
         }
 
         [HttpPut("{id}", Name = "EditSubActivity")]
-        public async Task<IActionResult> EditSubActivity(string userId, int id, SubActivityUpdateDto subActivityUpdate)
+        public async Task<IActionResult> EditSubActivity(int id, SubActivityUpdateDto subActivityUpdate)
         {
-            if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                return Unauthorized();
+            _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (!ModelState.IsValid)
             {
@@ -78,7 +76,7 @@ namespace WheresTheBread.Controllers
             {
                 return BadRequest("Unable to update subactivity");
             }
-            var result = await _subActivityService.UpdateSubActivityAsync(userId, subActivityUpdate);
+            var result = await _subActivityService.UpdateSubActivityAsync(_userId, subActivityUpdate);
             if (result)
             {
                 return Ok("Subactivity Created Successfully");
@@ -89,11 +87,10 @@ namespace WheresTheBread.Controllers
 
         [HttpPost("{id}")]
 
-        public async Task<IActionResult> DeleteSubActivity(string userId, int id)
+        public async Task<IActionResult> DeleteSubActivity(int id)
         {
-            if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                return Unauthorized();
-            if (await _subActivityService.DeleteSubActivityAsync(userId, id))
+            _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (await _subActivityService.DeleteSubActivityAsync(_userId, id))
                 return NoContent();
 
             throw new System.Exception("Error deleting the subactivity");
