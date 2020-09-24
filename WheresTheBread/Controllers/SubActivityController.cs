@@ -34,7 +34,7 @@ namespace WheresTheBread.Controllers
             var result = await _subActivityService.CreateSubActivityAsync(_userId, subActivity);
             if (result)
             {
-                return Ok("Item Created Successfully");
+                return Ok("SubActivity Created Successfully");
             }
 
             throw new System.Exception("Creating the subactivity failed on save");
