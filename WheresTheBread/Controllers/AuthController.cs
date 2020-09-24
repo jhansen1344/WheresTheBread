@@ -46,7 +46,7 @@ namespace WheresTheBread.Controllers
 
             if (result.Succeeded)
             {
-                return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
+                //return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
 
             }
 

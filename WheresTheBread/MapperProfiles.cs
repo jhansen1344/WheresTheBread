@@ -36,6 +36,7 @@ namespace WheresTheBread
                     opt => opt.MapFrom(src => src.Item.Location));
             CreateMap<SubActivityUpdateDto, SubActivity>();
             CreateMap<User, UserToReturnDto>();
+            CreateMap<UserForRegisterDto, User>();
             //.ForMember(dest =>
             //dest.SubActivityItems,
             //opt => opt.MapFrom(src => src.SubActivityItems));

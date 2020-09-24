@@ -8,10 +8,10 @@ namespace WheresTheBread.Services
 {
     public interface IItemService
     {
-        Task<bool> CreateItemAsync(ItemCreateDto model);
-        Task<bool> DeleteItemAsync(int itemId);
-        Task<ItemDetailDto> GetItemByIdAsync(int id);
-        Task<IEnumerable<ItemListDto>> GetItemsAsync();
-        Task<bool> UpdateItemAsync(ItemUpdateDto model);
+        Task<bool> CreateItemAsync(string userId, ItemCreateDto model);
+        Task<bool> DeleteItemAsync(string userId, int itemId);
+        Task<ItemDetailDto> GetItemByIdAsync(string userId, int id);
+        Task<IEnumerable<ItemListDto>> GetItemsAsync(string userId);
+        Task<bool> UpdateItemAsync(string userId, ItemUpdateDto model);
     }
 }

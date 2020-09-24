@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using WheresTheBread.Data;
 using WheresTheBread.DTO.ItemDto;
 using WheresTheBread;
+using System.Security.Claims;
 
 namespace WheresTheBread.Services
 {
     public class ItemService : IItemService
     {
-        private readonly string _userId = "testUser";
+        //private readonly string _userId = "testUser";
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
@@ -25,10 +26,10 @@ namespace WheresTheBread.Services
         }
         //Get
 
-        public async Task<IEnumerable<ItemListDto>> GetItemsAsync()
+        public async Task<IEnumerable<ItemListDto>> GetItemsAsync(string userId)
         {
 
-            List<Item> itemsFromDb = await _context.Items.Where(e => e.UserId == _userId).ToListAsync();
+            List<Item> itemsFromDb = await _context.Items.Where(e => e.UserId == userId).ToListAsync();
 
             var itemsToReturn = _mapper.Map<List<ItemListDto>>(itemsFromDb);
             return itemsToReturn;
@@ -37,20 +38,20 @@ namespace WheresTheBread.Services
 
         // //Get By Id/
 
-        public async Task<ItemDetailDto> GetItemByIdAsync(int id)
+        public async Task<ItemDetailDto> GetItemByIdAsync(string userId, int id)
         {
-            var itemFromDb = await _context.Items.SingleOrDefaultAsync(e => e.UserId == _userId && e.Id == id);
+            var itemFromDb = await _context.Items.SingleOrDefaultAsync(e => e.UserId == userId && e.Id == id);
             var itemToReturn = _mapper.Map<ItemDetailDto>(itemFromDb);
             return itemToReturn;
 
         }
 
         ////Create
-        public async Task<bool> CreateItemAsync(ItemCreateDto model)
+        public async Task<bool> CreateItemAsync(string userId, ItemCreateDto model)
         {
             var item = new Item()
             {
-                UserId = "testUser",
+                UserId = userId,
                 Name = model.Name,
                 Location = model.Location
             };
@@ -62,22 +63,22 @@ namespace WheresTheBread.Services
 
         // //Update
 
-        public async Task<bool> UpdateItemAsync(ItemUpdateDto model)
+        public async Task<bool> UpdateItemAsync(string userId, ItemUpdateDto model)
         {
             var item = await _context
                             .Items
-                            .SingleOrDefaultAsync(e => e.Id == model.Id && e.UserId == _userId);
+                            .SingleOrDefaultAsync(e => e.Id == model.Id && e.UserId == userId);
             _mapper.Map(model, item);
             return await _context.SaveChangesAsync() == 1;
         }
 
         // //Delete
 
-        public async Task<bool> DeleteItemAsync(int itemId)
+        public async Task<bool> DeleteItemAsync(string userId, int itemId)
         {
             var item = await _context
                             .Items
-                            .SingleOrDefaultAsync(e => e.Id == itemId && e.UserId == _userId);
+                            .SingleOrDefaultAsync(e => e.Id == itemId && e.UserId == userId);
             _context.Items.Remove(item);
             return await _context.SaveChangesAsync() == 1;
         }
