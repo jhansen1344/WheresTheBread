@@ -9,10 +9,10 @@ namespace WheresTheBread.Services
     public interface ISubActivityService
     {
 
-        Task<bool> CreateSubActivityAsync(SubActivityCreateDto model);
-        Task<bool> DeleteSubActivityAsync(int id);
-        Task<SubActivityDetailDto> GetSubActivityByIdAsync(int id);
-        Task<IEnumerable<SubActivityListDto>> GetSubActivitiesAsync();
-        Task<bool> UpdateSubActivityAsync(SubActivityUpdateDto model);
+        Task<bool> CreateSubActivityAsync(string userId, SubActivityCreateDto model);
+        Task<bool> DeleteSubActivityAsync(string userId, int id);
+        Task<SubActivityDetailDto> GetSubActivityByIdAsync(string userId, int id);
+        Task<IEnumerable<SubActivityListDto>> GetSubActivitiesAsync(string userId);
+        Task<bool> UpdateSubActivityAsync(string userId, SubActivityUpdateDto model);
     }
 }

@@ -15,7 +15,7 @@ namespace WheresTheBread.Services
     public class SubActivityService : ISubActivityService
 
     {
-        private readonly string _userId = "testUser";
+        //private readonly string _userId = "testUser";
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
@@ -24,11 +24,11 @@ namespace WheresTheBread.Services
             _mapper = mapper;
             _context = context;
         }
-        public async Task<bool> CreateSubActivityAsync(SubActivityCreateDto model)
+        public async Task<bool> CreateSubActivityAsync(string userId, SubActivityCreateDto model)
         {
             var subActivity = new SubActivity()
             {
-                UserId = "testUser",
+                UserId = userId,
                 Name = model.Name,
                 SubActivityItems= new List<SubActivityItemJoin>()
             };
@@ -52,25 +52,25 @@ namespace WheresTheBread.Services
 
         }
 
-        public async Task<bool> DeleteSubActivityAsync(int id)
+        public async Task<bool> DeleteSubActivityAsync(string userId, int id)
         {
             var subActivity = await _context
                             .SubActivities
-                            .SingleOrDefaultAsync(e => e.Id == id && e.UserId == _userId);
+                            .SingleOrDefaultAsync(e => e.Id == id && e.UserId == userId);
             _context.SubActivities.Remove(subActivity);
             return await _context.SaveChangesAsync() == 1;
         }
 
-        public async Task<IEnumerable<SubActivityListDto>> GetSubActivitiesAsync()
+        public async Task<IEnumerable<SubActivityListDto>> GetSubActivitiesAsync(string userId)
         {
-            var subActivitiesFromDb = await _context.SubActivities.Where(e => e.UserId ==_userId).Include(subActivity => subActivity.SubActivityItems).ToListAsync();
+            var subActivitiesFromDb = await _context.SubActivities.Where(e => e.UserId ==userId).Include(subActivity => subActivity.SubActivityItems).ToListAsync();
             var subActivitiesToReturn = _mapper.Map<List<SubActivityListDto>>(subActivitiesFromDb);
             return subActivitiesToReturn;
         }
 
-        public async Task<SubActivityDetailDto> GetSubActivityByIdAsync(int id)
+        public async Task<SubActivityDetailDto> GetSubActivityByIdAsync(string userId, int id)
         {
-            var subActivityFromDb = await _context.SubActivities.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item).SingleOrDefaultAsync(e => e.UserId == _userId && e.Id == id);
+            var subActivityFromDb = await _context.SubActivities.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item).SingleOrDefaultAsync(e => e.UserId == userId && e.Id == id);
            
                 //.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item);
             var subActivityToReturn = _mapper.Map<SubActivityDetailDto>(subActivityFromDb);
@@ -79,12 +79,12 @@ namespace WheresTheBread.Services
             return subActivityToReturn;
         }
 
-        public async Task<bool> UpdateSubActivityAsync(SubActivityUpdateDto model)
+        public async Task<bool> UpdateSubActivityAsync(string userId, SubActivityUpdateDto model)
         {
             var subActivity = await _context
                             .SubActivities
                             .Include(subActivity => subActivity.SubActivityItems)
-                            .SingleOrDefaultAsync(e => e.Id == model.Id && e.UserId == _userId);
+                            .SingleOrDefaultAsync(e => e.Id == model.Id && e.UserId == userId);
             _mapper.Map(model, subActivity);
 
             subActivity.SubActivityItems.Clear();
