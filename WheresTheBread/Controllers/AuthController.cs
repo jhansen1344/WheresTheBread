@@ -46,7 +46,15 @@ namespace WheresTheBread.Controllers
 
             if (result.Succeeded)
             {
-                //return CreatedAtRoute("GetUser", new { controller = "Users", id = userToCreate.Id }, userToReturn);
+
+                var user = await _userManager.FindByNameAsync(userForRegisterDto.UserName);
+
+                return Ok(new
+                {
+                    token = GenerateJwtToken(user).Result,
+                    user = userToReturn
+
+                }); ;
 
             }
 
