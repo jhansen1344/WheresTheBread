@@ -9,6 +9,7 @@ using WheresTheBread.Data;
 using WheresTheBread.DTO.ItemDto;
 using WheresTheBread;
 using System.Security.Claims;
+using AutoMapper.QueryableExtensions;
 
 namespace WheresTheBread.Services
 {
@@ -40,10 +41,10 @@ namespace WheresTheBread.Services
 
         public async Task<ItemDetailDto> GetItemByIdAsync(string userId, int id)
         {
-            var itemFromDb = await _context.Items.SingleOrDefaultAsync(e => e.UserId == userId && e.Id == id);
-            var itemToReturn = _mapper.Map<ItemDetailDto>(itemFromDb);
-            return itemToReturn;
-
+            return await _context.Items
+                .Where(e => e.UserId == userId && e.Id == id)
+                .ProjectTo<ItemDetailDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
         }
 
         ////Create
