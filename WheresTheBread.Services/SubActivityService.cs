@@ -68,6 +68,20 @@ namespace WheresTheBread.Services
             return subActivitiesToReturn;
         }
 
+        public async Task<IEnumerable<ItemDetailDto>> GetSubActivitiyItems(string userId, List<int> subActivityIds)
+        {
+            List<ItemDetailDto> listOfItems = new List<ItemDetailDto>();
+            foreach (var subId in subActivityIds)
+            {
+                var subActivityFromDb = await _context.SubActivities.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item).SingleOrDefaultAsync(e => e.UserId == userId && e.Id == subId);
+
+                listOfItems = _mapper.Map<List<ItemDetailDto>>(subActivityFromDb.SubActivityItems);
+            }
+
+            return listOfItems;
+
+        }
+
         public async Task<SubActivityDetailDto> GetSubActivityByIdAsync(string userId, int id)
         {
             var subActivityFromDb = await _context.SubActivities.Include(subActivity => subActivity.SubActivityItems).ThenInclude(subActivityItems => subActivityItems.Item).SingleOrDefaultAsync(e => e.UserId == userId && e.Id == id);
