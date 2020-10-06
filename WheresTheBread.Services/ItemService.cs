@@ -30,10 +30,12 @@ namespace WheresTheBread.Services
         public async Task<IEnumerable<ItemListDto>> GetItemsAsync(string userId)
         {
 
-            List<Item> itemsFromDb = await _context.Items.Where(e => e.UserId == userId).ToListAsync();
+            return await _context.Items
+                .Where(e => e.UserId == userId)
+                .ProjectTo<ItemListDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
 
-            var itemsToReturn = _mapper.Map<List<ItemListDto>>(itemsFromDb);
-            return itemsToReturn;
+
         }
 
 
