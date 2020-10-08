@@ -71,7 +71,7 @@ namespace WheresTheBread.Controllers
             var result = await _itemService.UpdateItemAsync(_userId, itemUpdate);
             if (result)
             {
-                return Ok("Item Created Successfully");
+                return NoContent();
             }
 
             throw new System.Exception("Creating the item failed on save");
