@@ -112,7 +112,7 @@ namespace WheresTheBread.Services
                     SubActivity = subActivity
                 });
             }
-            var result = await _context.SaveChangesAsync() == model.ItemIds.Count() + 1;
+            var result = await _context.SaveChangesAsync() == model.ItemIds.Count();
 
             return result;
         }
