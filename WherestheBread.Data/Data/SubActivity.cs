@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using WheresTheBread.Data.Data;
-using WheresTheBread.Data.Interfaces;
 
 namespace WheresTheBread.Data
 {
-    public class SubActivity : ISubActivity
+    public class SubActivity
     {
+        public SubActivity(string name, string userId)
+        {
+            Name = name;
+            UserId = userId;
+            SubActivityItems = new HashSet<SubActivityItemJoin>();
+        }
+        public SubActivity()
+        {
+            SubActivityItems = new HashSet<SubActivityItemJoin>();
+        }
+
         [Key]
-        public int Id { get; set ; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "Too many characters")]
         [Display(Name = "SubActivity")]

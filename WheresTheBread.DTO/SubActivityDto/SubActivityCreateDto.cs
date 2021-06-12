@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using WheresTheBread.Data;
 
 namespace WheresTheBread.DTO.SubActivityDto
 {
@@ -13,7 +10,6 @@ namespace WheresTheBread.DTO.SubActivityDto
         [MaxLength(50, ErrorMessage = "Too many characters")]
         [Display(Name = "SubActivity Name")]
         public string Name { get; set; }
-
         public virtual IEnumerable<int> ItemIds { get; set; }
     }
 }

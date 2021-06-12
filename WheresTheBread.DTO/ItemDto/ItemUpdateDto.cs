@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WheresTheBread.DTO.ItemDto
 {
@@ -14,6 +11,5 @@ namespace WheresTheBread.DTO.ItemDto
         [Display(Name = "Item Name")]
         public string Name { get; set; }
         public string Location { get; set; }
-  
     }
 }

@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using WheresTheBread.Data.Interfaces;
 
 namespace WheresTheBread.Data
 {
-    public class Activity : IActivity
+    public class Activity
     {
+        public Activity(string userId)
+        {
+            UserId = userId;
+            Created = DateTime.Now;
+            SubActivities = new HashSet<SubActivity>();
+        }
+        public Activity()
+        {
+            SubActivities = new HashSet<SubActivity>();
+        }
         [Key]
-        public int Id { get ; set ; }
+        public int Id { get; set; }
         [Required]
         public string UserId { get; set; }
-        public DateTimeOffset Created
-        {
-            get
-            { return DateTimeOffset.Now; }
-        }
+        public DateTimeOffset Created { get; }
         public virtual IEnumerable<SubActivity> SubActivities { get; set; }
     }
 }

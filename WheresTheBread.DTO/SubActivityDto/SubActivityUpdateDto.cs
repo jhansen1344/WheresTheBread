@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using WheresTheBread.Data;
 
 namespace WheresTheBread.DTO.SubActivityDto
 {
