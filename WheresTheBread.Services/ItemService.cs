@@ -11,7 +11,6 @@ namespace WheresTheBread.Services
 {
     public class ItemService : IItemService
     {
-        //private readonly string _userId = "testUser";
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
@@ -24,7 +23,7 @@ namespace WheresTheBread.Services
         public async Task<IEnumerable<ItemListDto>> GetItemsAsync(string userId)
         {
             return await _context.Items
-                .Where(e => e.UserId == userId)
+                .Where(i => i.UserId == userId)
                 .ProjectTo<ItemListDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -32,7 +31,7 @@ namespace WheresTheBread.Services
         public async Task<ItemDetailDto> GetItemByIdAsync(string userId, int id)
         {
             return await _context.Items
-                .Where(e => e.UserId == userId && e.Id == id)
+                .Where(i => i.UserId == userId && i.Id == id)
                 .ProjectTo<ItemDetailDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
@@ -43,15 +42,12 @@ namespace WheresTheBread.Services
             
             await _context.Items.AddAsync(item);
             
-            var result = await _context.SaveChangesAsync() == 1;
-            
-            return result;
+            return await _context.SaveChangesAsync() == 1;
         }
 
         public async Task<bool> UpdateItemAsync(string userId, ItemUpdateDto model)
         {
-            var item = await _context
-                .Items
+            var item = await _context.Items
                 .SingleOrDefaultAsync(e => e.Id == model.Id && e.UserId == userId);
             
             _mapper.Map(model, item);
@@ -61,9 +57,8 @@ namespace WheresTheBread.Services
 
         public async Task<bool> DeleteItemAsync(string userId, int itemId)
         {
-            var item = await _context
-                .Items
-                .SingleOrDefaultAsync(e => e.Id == itemId && e.UserId == userId);
+            var item = await _context.Items
+                .SingleOrDefaultAsync(i => i.Id == itemId && i.UserId == userId);
             
             _context.Items.Remove(item);
             

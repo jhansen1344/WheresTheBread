@@ -14,10 +14,10 @@ namespace WheresTheBread.Controllers
     [ApiController]
     public class SubActivityController : ControllerBase
     {
-        private readonly ISubActivityService _subActivityService;
+        private readonly Lazy<ISubActivityService> _subActivityService;
         private string _userId;
 
-        public SubActivityController(ISubActivityService service)
+        public SubActivityController(Lazy<ISubActivityService> service)
         {
             _subActivityService = service;
         }
@@ -41,12 +41,9 @@ namespace WheresTheBread.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> Get()
         {
             _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //if (userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-            //    return Unauthorized();
             var subActivityList = await _subActivityService.GetSubActivitiesAsync(_userId);
             return Ok(subActivityList);
         }
@@ -86,7 +83,6 @@ namespace WheresTheBread.Controllers
         }
 
         [HttpPost("{id}")]
-
         public async Task<IActionResult> DeleteSubActivity(int id)
         {
             _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,14 +15,10 @@ namespace WheresTheBread.Controllers
         private readonly IItemService _itemService;
         private string _userId;
 
-
-
         public ItemController(IItemService service)
         {
             _itemService = service;
-            
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Post(ItemCreateDto item)
@@ -41,7 +38,6 @@ namespace WheresTheBread.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> Get()
         {
             _userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -87,7 +83,5 @@ namespace WheresTheBread.Controllers
 
             throw new System.Exception("Error deleting the item");
         }
-
-        
     }
 }
