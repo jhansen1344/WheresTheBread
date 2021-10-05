@@ -14,10 +14,10 @@ namespace WheresTheBread.Controllers
     [ApiController]
     public class SubActivityController : ControllerBase
     {
-        private readonly Lazy<ISubActivityService> _subActivityService;
+        private readonly ISubActivityService _subActivityService;
         private string _userId;
 
-        public SubActivityController(Lazy<ISubActivityService> service)
+        public SubActivityController(ISubActivityService service)
         {
             _subActivityService = service;
         }
