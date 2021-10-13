@@ -31,7 +31,7 @@ namespace WheresTheBread.Controllers
             var result = await _itemService.CreateItemAsync(_userId, item);
             if(result)
             {
-                return Ok("Item Created Successfully");
+                return Ok();
             }
 
             throw new System.Exception("Creating the item failed on save");
